@@ -7,6 +7,10 @@ mov bx, 0x1000
 mov dh, 20
 call Read
 
+mov ah, 0
+mov al, 3
+int 0x10
+
 cli
 lgdt [toc]
 mov eax, cr0

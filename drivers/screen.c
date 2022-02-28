@@ -1,4 +1,4 @@
-#include "../drivers/ports.h"
+#include "ports.h"
 unsigned short getCur(){
 	outb(0x3d4, 0x0f);
 	unsigned short offset=inb(0x3d5);
