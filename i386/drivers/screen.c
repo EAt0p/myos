@@ -1,7 +1,7 @@
-//TODO: implent scrolling
 #define MAX_WIDTH 80
 #define MAX_HEIGHT 24
 #include "ports.h"
+#include "../kernel/mem.h"
 void setCur(unsigned char x, unsigned char y){
 	unsigned short offset=x+y*80;
 	outb(0x3d4, 0xf);		//write low byte
@@ -26,11 +26,20 @@ void print(char str[]){
 		x=getCur()%80;
 		y=getCur()/80;
 		if(str[i]==0x0a){
-			setCur(0, y+1);
+			x=0;
+			y++;
 		}
 		else{
 			vidmem[getCur()*2]=str[i];
-			setCur(x+1, y);
+			x++;
+		}
+		
+		if(y>=24){
+			setCur(x, 24);
+			memcpy(0xb8000, 0xb80a0, 80*24);
+		}
+		else{
+			setCur(x, y);
 		}
 		i++;
 	}

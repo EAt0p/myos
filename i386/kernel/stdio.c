@@ -44,7 +44,7 @@ unsigned char* htoa(unsigned int hex){
 		if(c>=0x0a && c<=0x0f){
 			c+=0x30+7;
 		}
-		else{
+		if(c>=0 && c<=9){
 			c+=0x30;
 		}
 		str[i]=c;
